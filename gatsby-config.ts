@@ -1,15 +1,15 @@
-import type { GatsbyConfig } from "gatsby"
+import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
   siteMetadata: {
     title: `iCountries`,
     siteUrl: `https://www.yourdomain.tld`,
+    description:
+      "A cumilated list of countries in the world, with their respective population, area, and currency.",
   },
-  // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
-  // If you use VSCode you can also use the GraphQL plugin
-  // Learn more at: https://gatsby.dev/graphql-typegen
+
   graphqlTypegen: true,
   plugins: [`gatsby-plugin-styled-components`],
-}
+};
 
-export default config
+export default config;
