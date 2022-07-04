@@ -1,4 +1,6 @@
 import * as React from "react";
+import { Link } from "gatsby";
+
 import styled, { createGlobalStyle } from "styled-components";
 
 // styled components
@@ -6,10 +8,12 @@ const GlobalStyle = createGlobalStyle`
 body {
   margin: 0;
   background-color: #e4ebed;
+  height: 100vh;
+
 }
 `;
 const Container = styled.main`
-  height: 100vh;
+  padding: 1rem 3rem;
 `;
 
 const Header = styled.header`
@@ -33,22 +37,59 @@ const Card = styled.div`
   border-radius: 0.5rem;
 `;
 
-const Breadcrumbs = styled.li`
-list-style: none;
-`
+const Breadcrumbs = styled.ul`
+  list-style: none;
+  padding: 0;
+  display: inline-flex;
+`;
+
+const BreadCrumbArrow = styled.span`
+  margin: 0 0.5rem;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #1d1e1f;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:focus {
+    color: #1d1e1f;
+  }
+`;
 
 // types
 interface LayoutProps {
   children: React.ReactNode;
+  country?: string;
 }
 
 // components
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, country }: LayoutProps) => {
   return (
     <React.Fragment>
       <GlobalStyle />
+      <Header>iCountries</Header>
+
       <Container className={`container`}>
-        <Header>iCountries</Header>
+        <Breadcrumbs>
+          <li>
+            <StyledLink to="/" activeStyle={{ fontWeight: "bold" }}>
+              All Countries
+            </StyledLink>
+          </li>
+          {country && (
+            <>
+              <BreadCrumbArrow> {">"}</BreadCrumbArrow>
+
+              <li>
+                <StyledLink to="/africa" activeStyle={{ fontWeight: "bold" }}>
+                  Africa
+                </StyledLink>
+              </li>
+            </>
+          )}
+        </Breadcrumbs>
         <Grid>
           <div>{children}</div>
           <div></div>

@@ -2,18 +2,14 @@ import * as React from "react";
 import { Link } from "gatsby";
 import Layout from "../components/Layout";
 
-const IndexPage = () => {
+const Country = () => {
   return (
-    <Layout  >
-   
+    <Layout country="Africa" >
       <div>
-        
+        See a state
       </div>
-      <div> <Link to="/africa">Africa</Link></div>
-
-      <div></div>
     </Layout>
   );
 };
 
-export default IndexPage;
+export default Country;
