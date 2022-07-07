@@ -9,7 +9,14 @@ const config: GatsbyConfig = {
   },
 
   graphqlTypegen: true,
-  plugins: [`gatsby-plugin-styled-components`],
+  plugins: [`gatsby-plugin-styled-components`,  {
+    resolve: "gatsby-source-graphql",
+    options: {
+      typeName: "Countries",
+      fieldName: "countries",
+      url: "https://countries.trevorblades.com/graphql",
+    },
+  },],
 };
 
 export default config;

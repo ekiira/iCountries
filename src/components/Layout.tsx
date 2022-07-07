@@ -1,7 +1,8 @@
 import * as React from "react";
-import { Link } from "gatsby";
-
+import { Link, useStaticQuery, graphql } from "gatsby";
 import styled, { createGlobalStyle } from "styled-components";
+
+import { IContinentsProp } from "../types";
 
 // styled components
 const GlobalStyle = createGlobalStyle` 
@@ -66,6 +67,16 @@ interface LayoutProps {
 
 // components
 const Layout = ({ children, country }: LayoutProps) => {
+  const { countries }: IContinentsProp = useStaticQuery(graphql`
+    query CountriesQuery {
+      countries {
+        continents {
+          name
+        }
+      }
+    }
+  `);
+
   return (
     <React.Fragment>
       <GlobalStyle />
@@ -93,7 +104,14 @@ const Layout = ({ children, country }: LayoutProps) => {
         <Grid>
           <div>{children}</div>
           <div></div>
-          <Card></Card>
+          <Card>
+            <div>Continents</div>
+            {countries?.continents.map((continent, index) => (
+              <ul key={index}>
+                <li>{continent.name}</li>
+              </ul>
+            ))}
+          </Card>
         </Grid>
       </Container>
     </React.Fragment>
