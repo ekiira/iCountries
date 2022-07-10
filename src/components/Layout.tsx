@@ -1,20 +1,75 @@
 import * as React from "react";
 import { Link, useStaticQuery, graphql } from "gatsby";
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 
-import { IContinentsProp } from "../types";
+import { IContinentsProp } from "../global/types";
+import { Card, Container, GlobalStyle } from "../global/styles";
+
+// types
+interface LayoutProps {
+  children: React.ReactNode;
+  country?: string;
+}
+
+// component
+const Layout = ({ children, country }: LayoutProps) => {
+  const { countries }: IContinentsProp = useStaticQuery(graphql`
+    query CountriesQuery {
+      countries {
+        continents {
+          name
+        }
+      }
+    }
+  `);
+
+  return (
+    <React.Fragment>
+      <GlobalStyle />
+      <Wrapper>
+        <Header>iCountries</Header>
+
+        <Container className={`container`}>
+          <Breadcrumbs>
+            <li>
+              <StyledLink to="/" activeStyle={{ fontWeight: "bold" }}>
+                All Countries
+              </StyledLink>
+            </li>
+            {country && (
+              <>
+                <BreadCrumbArrow> {">"}</BreadCrumbArrow>
+
+                <li>
+                  <StyledLink to="/africa" activeStyle={{ fontWeight: "bold" }}>
+                    Africa
+                  </StyledLink>
+                </li>
+              </>
+            )}
+          </Breadcrumbs>
+          <Grid>
+            <GridWide>{children}</GridWide>
+            <Card>
+              <div>Continents</div>
+              {countries?.continents.map((continent, index) => (
+                <ul key={index}>
+                  <li>{continent.name}</li>
+                </ul>
+              ))}
+            </Card>
+          </Grid>
+        </Container>
+      </Wrapper>
+    </React.Fragment>
+  );
+};
+
+export default Layout;
 
 // styled components
-const GlobalStyle = createGlobalStyle` 
-body {
-  margin: 0;
-  background-color: #e4ebed;
+const Wrapper = styled.div`
   height: 100vh;
-
-}
-`;
-const Container = styled.main`
-  padding: 1rem 3rem;
 `;
 
 const Header = styled.header`
@@ -30,17 +85,16 @@ const Grid = styled.div`
   padding: 2rem;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3rem;
 `;
 
-const Card = styled.div`
-  background-color: #fafafa;
-  padding: 1rem 0.85rem;
-  border-radius: 0.5rem;
+const GridWide = styled.div`
+  grid-column: span 2 / span 2;
 `;
 
 const Breadcrumbs = styled.ul`
-  list-style: none;
   padding: 0;
+  list-style: none;
   display: inline-flex;
 `;
 
@@ -58,64 +112,3 @@ const StyledLink = styled(Link)`
     color: #1d1e1f;
   }
 `;
-
-// types
-interface LayoutProps {
-  children: React.ReactNode;
-  country?: string;
-}
-
-// components
-const Layout = ({ children, country }: LayoutProps) => {
-  const { countries }: IContinentsProp = useStaticQuery(graphql`
-    query CountriesQuery {
-      countries {
-        continents {
-          name
-        }
-      }
-    }
-  `);
-
-  return (
-    <React.Fragment>
-      <GlobalStyle />
-      <Header>iCountries</Header>
-
-      <Container className={`container`}>
-        <Breadcrumbs>
-          <li>
-            <StyledLink to="/" activeStyle={{ fontWeight: "bold" }}>
-              All Countries
-            </StyledLink>
-          </li>
-          {country && (
-            <>
-              <BreadCrumbArrow> {">"}</BreadCrumbArrow>
-
-              <li>
-                <StyledLink to="/africa" activeStyle={{ fontWeight: "bold" }}>
-                  Africa
-                </StyledLink>
-              </li>
-            </>
-          )}
-        </Breadcrumbs>
-        <Grid>
-          <div>{children}</div>
-          <div></div>
-          <Card>
-            <div>Continents</div>
-            {countries?.continents.map((continent, index) => (
-              <ul key={index}>
-                <li>{continent.name}</li>
-              </ul>
-            ))}
-          </Card>
-        </Grid>
-      </Container>
-    </React.Fragment>
-  );
-};
-
-export default Layout;
