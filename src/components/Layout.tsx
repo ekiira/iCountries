@@ -3,12 +3,15 @@ import { Link, useStaticQuery, graphql } from "gatsby";
 import styled from "styled-components";
 
 import { IContinentsProp } from "../global/types";
-import { Card, Container, GlobalStyle } from "../global/styles";
+import { Card, Container, GlobalStyle, Wrapper } from "../global/styles";
 
 // types
 interface LayoutProps {
   children: React.ReactNode;
-  country?: string;
+  country?: {
+    name: string;
+    code: string;
+  };
 }
 
 // component
@@ -36,13 +39,13 @@ const Layout = ({ children, country }: LayoutProps) => {
                 All Countries
               </StyledLink>
             </li>
-            {country && (
+            {country?.name && (
               <>
                 <BreadCrumbArrow> {">"}</BreadCrumbArrow>
 
                 <li>
-                  <StyledLink to="/africa" activeStyle={{ fontWeight: "bold" }}>
-                    Africa
+                  <StyledLink to={`/${country.code}`} activeStyle={{ fontWeight: "bold" }}>
+                    {country.name}
                   </StyledLink>
                 </li>
               </>
@@ -51,7 +54,6 @@ const Layout = ({ children, country }: LayoutProps) => {
           <Grid>
             <GridWide>{children}</GridWide>
             <Card>
-              <div>Continents</div>
               {countries?.continents.map((continent, index) => (
                 <ul key={index}>
                   <li>{continent.name}</li>
@@ -68,9 +70,7 @@ const Layout = ({ children, country }: LayoutProps) => {
 export default Layout;
 
 // styled components
-const Wrapper = styled.div`
-  height: 100vh;
-`;
+
 
 const Header = styled.header`
   padding: 0.5rem;

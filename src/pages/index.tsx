@@ -5,12 +5,13 @@ import { ICountriesProp } from "../global/types";
 import { Card } from "../global/styles";
 
 const IndexPage = ({ data }: ICountriesProp) => {
+  const { countries } = data.countries;
   return (
     <Layout>
       <div>
         <Card>
           <div>Continents</div>
-          {data?.countries?.countries.map((country, index) => (
+          {countries.map((country, index) => (
             <ul key={index}>
               <li>
                 {" "}

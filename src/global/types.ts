@@ -18,3 +18,24 @@ export interface ICountriesProp {
     };
   };
 }
+
+export interface ICountryProp {
+  data: {
+    countries: {
+      country: {
+        name: string;
+        code: string;
+        emoji: string;
+        capital:string;
+        continent: {
+          name:string
+        }
+        phone: string;
+        currency: string; 
+        languages: {
+          name: string;
+        }[];
+      };
+    };
+  };
+}
