@@ -9,7 +9,7 @@ import {
   GlobalStyle,
   Wrapper,
   StyledLink,
-  Heading
+  Heading,
 } from "../global/styles";
 
 // types
@@ -92,14 +92,22 @@ const Header = styled.header`
 `;
 
 const Grid = styled.div`
-  padding: 2rem;
+  margin-top: 2rem;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 3rem;
+  @media screen and (max-width: 1023px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 2rem;
+    margin-top: 1rem;
+  }
 `;
 
 const GridWide = styled.div`
   grid-column: span 2 / span 2;
+  @media screen and (max-width: 1023px) {
+    grid-column: span 1 / span 1;
+  }
 `;
 
 const Breadcrumbs = styled.ul`

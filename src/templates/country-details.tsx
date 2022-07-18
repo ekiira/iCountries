@@ -49,9 +49,9 @@ const Country = ({ data }: ICountryProp) => {
                   <div>
                     <strong>Language(s):</strong>{" "}
                     {languages.map((language, index) => (
-                      <>
+                      <span key={index}>
                         <span key={index}>{language.name}</span> {` `}
-                      </>
+                      </span>
                     ))}
                   </div>
                 </Block>
