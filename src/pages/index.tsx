@@ -1,8 +1,9 @@
 import * as React from "react";
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
+
 import Layout from "../components/Layout";
 import { ICountriesProp } from "../global/types";
-import { Card } from "../global/styles";
+import { Card, StyledLink, Heading } from "../global/styles";
 
 const IndexPage = ({ data }: ICountriesProp) => {
   const { countries } = data.countries;
@@ -10,14 +11,16 @@ const IndexPage = ({ data }: ICountriesProp) => {
     <Layout>
       <div>
         <Card>
-          <div>Continents</div>
+          <Heading>
+            <span>Total: </span> <span>{countries.length}</span>
+          </Heading>
           {countries.map((country, index) => (
             <ul key={index}>
               <li>
                 {" "}
-                <Link to={`/${country.code}`}>
-                  {country.name} - {country.code}
-                </Link>{" "}
+                <StyledLink to={`/${country.code}`}>
+                  {country.name} {country.emoji}
+                </StyledLink>{" "}
               </li>
             </ul>
           ))}
@@ -37,6 +40,7 @@ export const query = graphql`
       countries {
         name
         code
+        emoji
       }
     }
   }

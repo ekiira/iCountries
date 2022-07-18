@@ -1,9 +1,11 @@
+import { Link } from "gatsby";
 import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle` 
 body {
   margin: 0;
   height: 100vh;
+  color: #1d1e1f;
 
 }
 a {
@@ -42,5 +44,24 @@ export const Card = styled.div`
   ul {
     list-style: none;
     padding: 0;
+  }
+`;
+
+export const Heading = styled.h2`
+  display: flex;
+  justify-content: end;
+  margin-top: 0;
+  border-bottom: 1px solid #1d1e1f;
+  padding-bottom: 0.5rem;
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #1d1e1f;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:focus {
+    color: #1d1e1f;
   }
 `;

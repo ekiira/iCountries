@@ -14,6 +14,7 @@ export interface ICountriesProp {
         phone: string;
         native: string;
         capital: string;
+        emoji:string;
       }[];
     };
   };

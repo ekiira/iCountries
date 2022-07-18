@@ -1,9 +1,9 @@
 import * as React from "react";
 import { graphql } from "gatsby";
+import styled from "styled-components";
 
 import Layout from "../components/Layout";
-import { Card } from "../global/styles";
-import styled from "styled-components";
+import { Card, Heading } from "../global/styles";
 import { ICountryProp } from "../global/types";
 
 const Country = ({ data }: ICountryProp) => {
@@ -14,43 +14,58 @@ const Country = ({ data }: ICountryProp) => {
       <div>
         <Card>
           <div>
-            <Head>
+            <Heading>
               {name} {emoji}
-            </Head>
+            </Heading>
           </div>
 
-          <div>
+          <Block>
             {capital && (
               <span>
                 <strong>Capital:</strong> {capital}
               </span>
             )}{" "}
-          </div>
-          <div>
+          </Block>
+          <Block>
             <span>
               <strong>Continent:</strong> {continent.name}
             </span>
-          </div>
-          <div>
+          </Block>
+          <Block>
             <span>
               <strong>Phone code:</strong> {phone}
             </span>
-          </div>
-          <div>
+          </Block>
+          <Block>
             <span>
               <strong>Currency:</strong> {currency}
             </span>
-          </div>
+          </Block>
 
           {languages.length > 0 && (
-            <div>
-              <div>
-                <strong>Language(s):</strong>{" "}
-                {languages.map((language, index) => (
-                  <span key={index}>{language.name}</span>
-                ))}
-              </div>
-            </div>
+            <>
+              {languages.length > 1 ? (
+                <Block>
+                  <div>
+                    <strong>Language(s):</strong>{" "}
+                    {languages.map((language, index) => (
+                      <>
+                        <span key={index}>{language.name}</span> {` `}
+                      </>
+                    ))}
+                  </div>
+                </Block>
+              ) : (
+                <Block>
+                  <div>
+                    <strong>Language(s):</strong>{" "}
+                    {languages.map((language, index) => (
+                      <span key={index}>{language.name}</span>
+                    ))}
+                  </div>
+                </Block>
+              )}
+            </>
           )}
         </Card>
       </div>
@@ -81,7 +96,6 @@ export const query = graphql`
   }
 `;
 
-const Head = styled.h2`
-  text-align: center;
-  margin-top: 0;
+const Block = styled.div`
+  margin-bottom: 1rem;
 `;

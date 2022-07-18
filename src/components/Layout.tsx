@@ -1,9 +1,16 @@
 import * as React from "react";
-import { Link, useStaticQuery, graphql } from "gatsby";
+import { useStaticQuery, graphql } from "gatsby";
 import styled from "styled-components";
 
 import { IContinentsProp } from "../global/types";
-import { Card, Container, GlobalStyle, Wrapper } from "../global/styles";
+import {
+  Card,
+  Container,
+  GlobalStyle,
+  Wrapper,
+  StyledLink,
+  Heading
+} from "../global/styles";
 
 // types
 interface LayoutProps {
@@ -44,7 +51,10 @@ const Layout = ({ children, country }: LayoutProps) => {
                 <BreadCrumbArrow> {">"}</BreadCrumbArrow>
 
                 <li>
-                  <StyledLink to={`/${country.code}`} activeStyle={{ fontWeight: "bold" }}>
+                  <StyledLink
+                    to={`/${country.code}`}
+                    activeStyle={{ fontWeight: "bold" }}
+                  >
                     {country.name}
                   </StyledLink>
                 </li>
@@ -54,6 +64,7 @@ const Layout = ({ children, country }: LayoutProps) => {
           <Grid>
             <GridWide>{children}</GridWide>
             <Card>
+              <Heading>All continents</Heading>
               {countries?.continents.map((continent, index) => (
                 <ul key={index}>
                   <li>{continent.name}</li>
@@ -70,7 +81,6 @@ const Layout = ({ children, country }: LayoutProps) => {
 export default Layout;
 
 // styled components
-
 
 const Header = styled.header`
   padding: 0.5rem;
@@ -100,15 +110,4 @@ const Breadcrumbs = styled.ul`
 
 const BreadCrumbArrow = styled.span`
   margin: 0 0.5rem;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #1d1e1f;
-  &:hover {
-    text-decoration: underline;
-  }
-  &:focus {
-    color: #1d1e1f;
-  }
 `;
